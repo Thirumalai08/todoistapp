@@ -1,68 +1,75 @@
+import { Container } from '@material-ui/core'
+import React, { useState } from 'react'
+import AddItems from './Screens/AddItems'
+import EditItems from './Screens/EditItems'
+import ViewItems from './Screens/ViewItems'
 
-import { useState } from 'react';
-import './App.css';
-import AddTodos from './View/AddTodos';
-import EditTodos from './View/EditTodos';
-import Todos from './View/Todos';
-
-
-function App() {
-  // initial data for users
-  const usersData = [
-    {id:1,name:'Arvind',username:'Arvind08'},
-    {id:2,name:'Nambi',username:'Nambi08'},
-    {id:3,name:'Thirumalai',username:'Thiru08'},
-    {id:4,name:'Iradhi',username:'Iradhi28'}
-  ]
-  // initial form state
-  const initialFormState = { id: null, name: '', username: '' }
-  // state for users
-  const [users,setUsers] = useState(usersData)
-  // state for editing for default keep the mode in false
-  const [editing,setEditing] = useState(false)
-  // state for user who is doing current edit operation
-  const [currentUser,setCurrentUser] = useState(initialFormState)
-  // adduser function
-  const addUser = (user) => {
-    user.id = users.length + 1
-    setUsers([...users,user])
-  }
-  // deluser function
-  const delUser = (id) => {
-    setUsers(users.filter((user)=>user.id !== id))
-  }
-  // edituser function
-  const editCurrentUser = (user) => {
-    setEditing(true)
-    setCurrentUser({id:user.id,name:user.name,username:user.username})
-  }
-  // update user function
-  const updateUser = (id, updatedUser) => {
-    setEditing(false)
-  
-    setUsers(users.map((user) => (user.id === id ? updatedUser : user)))
-  }
-  return(
-    <div>
-      <h2>Todoist App</h2>
-      <div>
-        {editing ? (
-          <div>
-          <h3>Edit User</h3>
-          <EditTodos setEditing={setEditing} currentUser={currentUser} updateUser={updateUser} />
-          </div>
-        ) : (
-          <div>
-          <h3>Add User</h3>
-          <AddTodos addUser={addUser} />
-          </div>
-        )}
-      </div>
-      <div>
-        <h3>View Users</h3>
-        <Todos users={users} delUser={delUser} editCurrentUser={editCurrentUser} />
-      </div>
-    </div>
-  )
-  }
-export default App;
+function App(){
+    //initial data for notes
+    const contentData = [
+        {id:1,title:'Content One',content:'Content about title one'},
+        {id:2,title:'Content Two',content:'Content about title two'},
+        {id:3,title:'Content Three',content:'Content about title three'}
+    ]
+    // initial form state
+    const initialFormState = {id: null, title:'',content:''}
+    // state for notes
+    const [notes,setNotes] = useState(contentData)
+    // state for editing for default keep the mode in false
+    const [editing,setEditing] = useState(false)
+    // state for current note who is doing the operation
+    const [currentNote,setCurrentNote] = useState(initialFormState)
+    // addNotes function
+    const addNote = (note) => {
+        note.id = notes.length + 1
+        setNotes([...notes,note])
+    }
+    // delNotes Function
+    const delNote = (id) => {
+        setNotes(notes.filter((note)=>note.id !== id))
+    }
+    // edit note function
+    const editCurrentNote = (note) => {
+        setEditing(true)
+        setCurrentNote({id:note.id,title:note.title,content:note.content})
+    }
+    // update note function
+    const updateNote = (id,updatedNote) => {
+        setEditing(false)
+        setNotes(notes.map((note)=>(
+            note.id === id ? updatedNote : note
+        )))
+    }
+    return(
+        <div>
+            <Container fixed>
+            <h2>Todoist App</h2>
+            <div>
+            {/* 1 
+            <div>
+                <h3>Add New Task</h3>
+                <AddItems addNote={addNote} />
+            </div> */}
+                {editing ? (
+                    <div>
+                        <h3>Edit Notes</h3>
+                        <EditItems setEditing={setEditing} currentNote={currentNote} updateNote={updateNote} />
+                    </div>
+                ) : (
+                    <div>
+                        <h3>Add New Notes</h3>
+                        <AddItems addNote={addNote} />
+                    </div>
+                )}
+            {/*<EditItems />*/}
+            {/* 2 */}
+            <div>
+                <h3>View Notes</h3>
+                <ViewItems notes={notes} delNote={delNote} editCurrentNote={editCurrentNote} />
+            </div>
+            </div>
+            </Container>
+        </div>
+    )
+}
+export default App

@@ -6,7 +6,7 @@ import EditTodos from './EditTodos';
 import Todos from './Todos';
 
 
-function App() {
+function Main() {
   // initial data for users
   const usersData = [
     {id:1,name:'Arvind',username:'Arvind08'},
@@ -65,4 +65,4 @@ function App() {
     </div>
   )
   }
-export default App;
+export default Main

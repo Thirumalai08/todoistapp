@@ -29,7 +29,6 @@ function AddItems(){
         const result = await axios.post(`${BASE_URL}`,info)
         console.log(result.data)
         setTodo(initialFormState)
-        //alert('Button Clicked!!!')
     }
     return(
         <div>

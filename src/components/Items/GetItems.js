@@ -24,7 +24,7 @@ function GetItems(){
                         <li key={todo._id}>{todo.title}</li>
                     ))
                 ) 
-                : (<p>No items in the list</p>)}
+                : (<p>No items in your list</p>)}
             </ol>
         </div>
     )
